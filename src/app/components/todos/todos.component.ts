@@ -9,6 +9,7 @@ import { Todo } from 'src/app/models/Todo';
 export class TodosComponent implements OnInit {
   todos: Todo[];
   inputTodo: string = '';
+  inputDescription: string = 'ola';
 
   constructor() {}
 
@@ -31,6 +32,7 @@ export class TodosComponent implements OnInit {
   addTodo() {
     this.todos.push({
       content: this.inputTodo,
+      description: this.inputDescription,
       completed: false,
     });
 

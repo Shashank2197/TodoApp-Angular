@@ -1,20 +1,56 @@
-<div class="todos">
-  <form (submit)="addTodo()">
-    <input
-      type="text"
-      name="inputTodo"
-      placeholder="Enter New Todo"
-      class="todo-input"
-      [(ngModel)]="inputTodo"
-    />
-    <button type="submit" class="todo-submit">New Todo</button>
+<div class="mx-4">
+  <form (submit)="addTodo()" class="flex flex-col content-center">
+    <div class="mb-6 mt-6">
+      <input
+        type="text"
+        name="inputTodo"
+        id="inputTodo"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Enter New Todo"
+        [(ngModel)]="inputTodo"
+      />
+    </div>
+    <button
+      type="submit"
+      class="w-48 self-center text-black bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 hover:text-white"
+    >
+      New Todo
+    </button>
   </form>
-  <div
-    *ngFor="let todo of todos; let i = index"
-    class="todo {{ todo.completed ? 'done' : '' }}"
-  >
-    <div class="id">{{ i + 1 }}</div>
-    <div class="content" (click)="toggleDone(i)">{{ todo.content }}</div>
-    <button class="delete" (click)="deleteTodo(i)">Remove</button>
+  <div *ngIf="todos.length == 0; else nonEmpty">
+    <p class="">No Data Present..Add New Data</p>
   </div>
+  <ng-template #nonEmpty>
+    <div class="mt-4 overflow-x-auto relative shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead
+          class="text-xs text-white uppercase bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="py-3 px-6">Sl.no</th>
+            <th scope="col" class="py-3 px-6">Task/Target</th>
+            <th scope="col" class="py-3 px-6">Description</th>
+            <th scope="col" class="py-3 px-6">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let todo of todos; let i = index"
+            class="border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gradient-to-r from-cyan-200 via-cyan-300 to-cyan-400 dark:hover:bg-gradient-to-r from-cyan-200 via-cyan-300 to-cyan-400"
+          >
+            <th scope="row" class="py-4 px-6">{{ i + 1 }}</th>
+            <td
+              class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              {{ todo.content }}
+            </td>
+            <td class="py-4 px-6 text-black font-normal">
+              {{ todo.description }}
+            </td>
+            <td class="py-4 px-6" (click)="deleteTodo(i)">Remove</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
 </div>
